@@ -13,9 +13,10 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
-import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.raqueveque.foodexample.databinding.ActivityMainBinding
 
 
@@ -29,6 +30,8 @@ class MainActivity : AppCompatActivity() {
 
     private var isKeyboardShowing = false
     private var vsble: Boolean = false
+
+    val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -195,19 +198,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setList() {
-        list.add(ModelExample("Pizza", "$400"))
-        list.add(ModelExample("Pizza", "$400"))
-        list.add(ModelExample("Pizza", "$400"))
-        list.add(ModelExample("asd", "$400"))
-        list.add(ModelExample("Hamburguesa", "$400"))
-        list.add(ModelExample("Empanada", "$400"))
-        list.add(ModelExample("Helado", "$400"))
-        list.add(ModelExample("Panchos", "$400"))
-        list.add(ModelExample("Pizza", "$400"))
-        list.add(ModelExample("Pizza", "$400"))
-        list.add(ModelExample("Pizza", "$400"))
-        list.add(ModelExample("Pizza", "$400"))
-        list.add(ModelExample("Pizza", "$400"))
+        db.collection("food").get().addOnSuccessListener { documents ->
+            val listData = mutableListOf<ModelExample>()
+            for (document in documents){
+                val food = document.getString("food")
+                val image = document.getString("image")
+                val price = document.getString("price")
+                val allFood = ModelExample(food!!, image!!, price!!)
+                listData.add(allFood)
+            }
+            list.addAll(listData)
+        }
     }
 
     private fun setupAdapter() {
