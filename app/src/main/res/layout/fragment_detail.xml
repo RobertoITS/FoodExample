@@ -136,7 +136,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight=".5"
                         android:text="Variation"
-                        android:textSize="23sp"
+                        android:textSize="20sp"
                         android:layout_marginVertical="10dp"/>
 
                     <TextView
@@ -145,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight=".5"
                         android:text="Required"
-                        android:textSize="20sp"
+                        android:textSize="12sp"
                         android:textAlignment="textEnd"
                         android:textColor="@color/red"
                         android:textStyle="italic"
@@ -172,14 +172,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Quantity"
-                        android:textSize="23sp"
+                        android:textSize="20sp"
                         android:layout_marginVertical="10dp"/>
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:elevation="20dp"
+                    android:background="@drawable/shape_01"
                     android:id="@+id/divisor3"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@+id/divisor2"
                     app:layout_constraintStart_toStartOf="parent"
@@ -224,7 +226,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="23sp"
+                        android:textSize="20sp"
                         android:text="Others"
                         android:layout_marginVertical="10dp"/>
 
@@ -233,7 +235,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Let us know if you have specific things in mind \n \n e.g. less spices, no mayo, etc."
-                        android:textSize="20sp"
+                        android:textSize="15sp"
                         android:ems="10"
                         android:gravity="start|top"
                         android:inputType="textMultiLine"/>
@@ -253,7 +255,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="If the product is not available"
-                        android:textSize="23sp"
+                        android:textSize="20sp"
                         android:layout_marginVertical="10dp"/>
 
                     <AutoCompleteTextView
@@ -277,7 +279,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textSize="23sp"
+                        android:textSize="20sp"
                         android:text="Total"/>
 
                     <TextView
@@ -285,7 +287,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textSize="30sp"
+                        android:textSize="23sp"
                         android:text="$350"
                         android:textAlignment="textEnd"/>
 
