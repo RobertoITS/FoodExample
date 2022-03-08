@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
-import androidx.core.content.contentValuesOf
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +19,6 @@ import com.google.firebase.firestore.*
 import com.raqueveque.foodexample.databinding.FragmentDetailBinding
 import com.raqueveque.foodexample.detail.adapter.VariationsAdapter
 import com.raqueveque.foodexample.detail.constructor.VariationsExtras
-import com.squareup.picasso.Picasso
 
 class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
@@ -38,11 +36,18 @@ class DetailFragment : Fragment() {
 
     private val sliderHandler = Handler()
 
+    private val sliderItems: MutableList<ImageSlider> = ArrayList()
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailBinding.inflate(layoutInflater, container, false)
+
+        sliderItems.add(ImageSlider(R.drawable.image01))
+        sliderItems.add(ImageSlider(R.drawable.image02))
+        sliderItems.add(ImageSlider(R.drawable.image03))
 
         getData()
 
@@ -56,7 +61,7 @@ class DetailFragment : Fragment() {
     }
 
     private fun initSlider() {
-        binding.imageSliderViewPager.adapter = SliderAdapter(imageList, binding.imageSliderViewPager)
+        binding.imageSliderViewPager.adapter = SliderAdapter(sliderItems, binding.imageSliderViewPager)
         binding.imageSliderViewPager.clipToPadding = false
         binding.imageSliderViewPager.clipChildren = false
         binding.imageSliderViewPager.offscreenPageLimit = 3
