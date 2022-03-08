@@ -20,14 +20,13 @@
         android:animateLayoutChanges="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorSurface"
             app:statusBarScrim="?attr/colorSurface"
             app:collapsedTitleGravity="center"
-            app:collapsedTitleTextAppearance="@style/TextAppearance.Sunflower.Toolbar.Text"
+            app:collapsedTitleTextAppearance="?attr/colorOnSurface"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleEnabled="false"
             app:toolbarId="@id/toolbar">
@@ -56,7 +55,6 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/plant_detail_scrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
@@ -131,7 +129,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/variation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight=".5"
@@ -140,7 +137,6 @@
                         android:layout_marginVertical="10dp"/>
 
                     <TextView
-                        android:id="@+id/required"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight=".5"
@@ -189,7 +185,6 @@
                     android:gravity="center_horizontal">
 
                     <Button
-                        android:id="@+id/less"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         app:icon="@drawable/ic_horizontal_rule_24"
@@ -198,7 +193,6 @@
                         android:background="@android:color/transparent"/>
 
                     <EditText
-                        android:id="@+id/quantity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="20dp"
@@ -206,7 +200,6 @@
                         android:textSize="23sp"/>
 
                     <Button
-                        android:id="@+id/more"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         app:icon="@drawable/ic_add_24"
@@ -231,7 +224,6 @@
                         android:layout_marginVertical="10dp"/>
 
                     <EditText
-                        android:id="@+id/editTextTextMultiLine"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Let us know if you have specific things in mind \n \n e.g. less spices, no mayo, etc."
@@ -300,15 +292,14 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
         style="@style/Widget.MaterialComponents.FloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:tint="@android:color/white"
-        app:shapeAppearance="@style/ShapeAppearance.Sunflower.FAB"
+        app:shapeAppearance="@style/ShapeAppearance.FoodExample.FAB"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@drawable/ic_plus" />
+        app:srcCompat="@drawable/ic_add_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

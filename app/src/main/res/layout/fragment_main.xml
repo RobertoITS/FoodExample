@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".main.ui.MainFragment"
-    android:id="@+id/rootActivity">
+    tools:context=".main.ui.MainFragment">
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -16,19 +15,17 @@
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="@color/teal_700"
             app:collapsedTitleGravity="center"
-            app:collapsedTitleTextAppearance="@style/TextAppearance.Sunflower.Toolbar.Text"
+            app:collapsedTitleTextAppearance="?attr/colorOnSurface"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:title="@string/app_name">
 
             <ImageView
-                android:id="@+id/detail_image"
                 android:layout_width="match_parent"
                 android:layout_height="278dp"
                 android:contentDescription="@string/content_description"
@@ -47,7 +44,6 @@
                 app:menu="@menu/menu_home"/>
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/searchToolbar"
                 app:collapseIcon="@drawable/ic_arrow_back"
                 app:titleTextColor="@color/sunflower_gray_50_a600"
                 android:layout_width="match_parent"
@@ -61,7 +57,6 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/plant_detail_scrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
@@ -69,7 +64,6 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
