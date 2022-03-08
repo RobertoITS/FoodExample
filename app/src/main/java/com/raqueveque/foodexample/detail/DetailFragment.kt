@@ -2,6 +2,7 @@ package com.raqueveque.foodexample.detail
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,9 @@ import androidx.core.content.contentValuesOf
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.firestore.*
 import com.raqueveque.foodexample.databinding.FragmentDetailBinding
 import com.raqueveque.foodexample.detail.adapter.VariationsAdapter
@@ -23,6 +27,7 @@ class DetailFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var variationsList: ArrayList<VariationsExtras>
+    private lateinit var imageList: ArrayList<ImageSlider>
     private lateinit var db: FirebaseFirestore
     private lateinit var vAdapter: VariationsAdapter
 
@@ -30,6 +35,8 @@ class DetailFragment : Fragment() {
 
     private var quantity = 1
     private var price: Long = 0
+
+    private val sliderHandler = Handler()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,9 +48,50 @@ class DetailFragment : Fragment() {
 
         initFragment()
 
+        initSlider()
+
         quantityPicker()
 
         return binding.root
+    }
+
+    private fun initSlider() {
+        binding.imageSliderViewPager.adapter = SliderAdapter(imageList, binding.imageSliderViewPager)
+        binding.imageSliderViewPager.clipToPadding = false
+        binding.imageSliderViewPager.clipChildren = false
+        binding.imageSliderViewPager.offscreenPageLimit = 3
+        binding.imageSliderViewPager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+
+        val compositePageTransformer = CompositePageTransformer()
+        compositePageTransformer.addTransformer(MarginPageTransformer(30))
+        compositePageTransformer.addTransformer { page, position ->
+            val r = 1 - kotlin.math.abs(position)
+            page.scaleY = 0.85f + r * 0.25f
+        }
+
+        binding.imageSliderViewPager.setPageTransformer(compositePageTransformer)
+
+        binding.imageSliderViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                sliderHandler.removeCallbacks(sliderRunnable)
+                sliderHandler.postDelayed(sliderRunnable, 3000)
+            }
+        })
+    }
+
+    private val sliderRunnable = Runnable {
+        binding.imageSliderViewPager.currentItem = binding.imageSliderViewPager.currentItem + 1
+    }
+
+    override fun onPause() {
+        super.onPause()
+        sliderHandler.postDelayed(sliderRunnable, 3000)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        sliderHandler.postDelayed(sliderRunnable, 3000)
     }
 
     private fun quantityPicker() {
@@ -69,13 +117,13 @@ class DetailFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun initFragment() {
-        Picasso.get().load(args.image).into(binding.image)
         binding.name.text = args.name
         binding.price.text = "$${args.price}"
     }
 
     private fun getData() {
         variationsList = arrayListOf()
+        imageList = arrayListOf()
         db = FirebaseFirestore.getInstance()
         db.collection("food/${args.id}/variations/").addSnapshotListener(object : EventListener<QuerySnapshot> {
             @SuppressLint("NotifyDataSetChanged")
@@ -92,6 +140,23 @@ class DetailFragment : Fragment() {
                 updateList(variationsList)
             }
         })
+
+        //Colectamos las imagenes a la lista
+        db.collection("food/${args.id}/images/").addSnapshotListener(object : EventListener<QuerySnapshot> {
+            override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                if (error != null){
+                    Log.e("FIREBASE ERROR", error.message.toString())
+                    return
+                }
+                for (dc: DocumentChange in value?.documentChanges!!){
+                    if (dc.type == DocumentChange.Type.ADDED){
+                        imageList.add(dc.document.toObject(ImageSlider::class.java))
+                    }
+                }
+            }
+        })
+
+
     }
 
     @SuppressLint("NotifyDataSetChanged")

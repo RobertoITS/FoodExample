@@ -60,7 +60,7 @@ class MainFragment : Fragment() {
 
         Utilities.setupUI(binding.rootActivity, requireContext())
 
-        binding.plantDetailScrollview.setOnScrollChangeListener(
+        binding.scrollView.setOnScrollChangeListener(
             NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, _, _ ->
                 // User scrolled past image to height of toolbar and the title text is
                 // underneath the toolbar, so the toolbar should be shown.
